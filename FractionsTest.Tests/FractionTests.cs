@@ -29,8 +29,23 @@ namespace FractionsTest.Tests
         [Test]
         public void BaseConstructorTestExcepion()
         {
-           // var fr = new Mock<Fraction>(4, 0);
-            Assert.That(() => new Fraction(4, 0), Throws.TypeOf<ArgumentNullException>() );
+            // var fr = new Mock<Fraction>(4, 0);
+            Assert.That(() => new Fraction(4, 0), Throws.TypeOf<ArgumentException>());
         }
-    }
+
+        [Test]
+        public void SameSignConstructorTest()
+        {
+            var fr = new Fraction(-1, -2);
+            Assert.That(() => fr.numerator == 1 && fr.denumerator == 2);
+        }
+
+        [Test]
+        public void NormalFormConstructorTest()
+        {
+            var fr = new Fraction(-2, 4);
+            Assert.That(() => fr.numerator == -1 && fr.denumerator == 2);
+            
+        }
+}
 }
