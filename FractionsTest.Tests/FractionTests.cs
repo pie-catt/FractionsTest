@@ -15,22 +15,15 @@ namespace FractionsTest.Tests
        [Test]
         public void BaseConstructorTestNum()
         {
-            var fr = new Mock<Fraction>(30, 42);
-            Assert.That(() => fr.Object.numerator == 5);
+            var fr = new Fraction(30, 42);
+            Assert.That(() => fr.numerator == 5);
         }
 
         [Test]
         public void BaseConstructorTestDen()
         {
-            var fr = new Mock<Fraction>(30, 42);
-            Assert.That(() => fr.Object.denumerator == 7);
-        }
-
-        [Test]
-        public void BaseConstructorTestExcepion()
-        {
-            // var fr = new Mock<Fraction>(4, 0);
-            Assert.That(() => new Fraction(4, 0), Throws.TypeOf<ArgumentException>());
+            var fr = new Fraction(30, 42);
+            Assert.That(() => fr.denumerator == 7);
         }
 
         [Test]
@@ -74,5 +67,33 @@ namespace FractionsTest.Tests
             var f3 = f1 * f2;
             Assert.That(() => f3.numerator == 1 && f3.denumerator == 5);
         }
+
+        [Test]
+        public void MinusOperatorTest()
+        {
+            var f1 = new Fraction(3, 5);
+            var f2 = new Fraction(2, 5);
+            var f3 = f1 - f2;
+            Assert.That(() => f3.numerator == 1 && f3.denumerator == 5);
+        }
+
+        [TestCase(11, 5, "11/5")]
+        [TestCase(22, 11, "2")]
+        [TestCase(22, -11, "-2")]
+
+        public void ToStringTest(int n, int d, string rapr)
+        {
+            var fr = new Fraction(n, d);
+            Assert.That(() => fr.ToString() == rapr);
+        }
+
+
+
+        [Test]
+        public void BaseConstructorTestNullDenExcepion()
+        {
+            Assert.That(() => new Fraction(4, 0), Throws.TypeOf<ArgumentException>());
+        }
+
     }
 }

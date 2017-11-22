@@ -14,20 +14,13 @@ namespace FractionsTest
 
         public Fraction(int n, int d)
         {
+
+            //Denumerator not = 0
             if (d == 0)
                 throw new ArgumentException(nameof(d));
+
             this.numerator = n;
             this.denumerator = d;
-
-            //Normal Form
-            for (int i = Math.Abs(this.numerator * this.denumerator); i > 1; i--)
-            {
-                if ((this.numerator % i == 0) && (this.denumerator % i == 0))
-                {
-                    this.numerator /= i;
-                    this.denumerator /= i;
-                }
-            }
 
             //Sign
             if (this.denumerator < 0)
@@ -43,25 +36,55 @@ namespace FractionsTest
                     this.denumerator = -denumerator;
                 }
             }
+           
+            //Normal Form
+            for (int i = Math.Abs(this.numerator * this.denumerator); i > 1; i--)
+            {
+                if ((this.numerator % i == 0) && (this.denumerator % i == 0))
+                {
+                    this.numerator /= i;
+                    this.denumerator /= i;
+                }
+            }
         }
 
         public static Fraction operator+ (Fraction f1, Fraction f2)
         {
-            int _newNominator = ((f1.numerator * f2.denumerator) +
+            int _newNumerator = ((f1.numerator * f2.denumerator) +
                                  (f2.numerator * f1.denumerator));
                                
             int _newDenominator = (f1.denumerator * f2.denumerator);
 
-            return new Fraction(_newNominator, _newDenominator);
+            return new Fraction(_newNumerator, _newDenominator);
         }
 
         public static Fraction operator *(Fraction f1, Fraction f2)
         {
-
-         return new Fraction(f1.numerator * f2.numerator, f1.denumerator * f2.denumerator);
-            
+            return new Fraction(f1.numerator * f2.numerator, f1.denumerator * f2.denumerator);
         }
-        
+
+        public static Fraction operator -(Fraction f1, Fraction f2)
+        {
+            int _newNumerator = ((f1.numerator * f2.denumerator) -
+                                 (f2.numerator * f1.denumerator));
+
+            int _newDenominator = (f1.denumerator * f2.denumerator);
+
+            return new Fraction(_newNumerator, _newDenominator);
+        }
+
+        public static Fraction operator /(Fraction f1, Fraction f2)
+        {
+            return new Fraction(f1.numerator * f2.denumerator, f1.denumerator * f2.numerator);
+        }
+
+        public override string ToString()
+        {
+            if(this.denumerator != 1)
+            return this.numerator + "/" + this.denumerator;
+            return this.numerator.ToString();
+        }
+
 
         static void Main(string[] args)
         {
