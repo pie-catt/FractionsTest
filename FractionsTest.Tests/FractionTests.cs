@@ -77,17 +77,31 @@ namespace FractionsTest.Tests
             Assert.That(() => f3.numerator == 1 && f3.denumerator == 5);
         }
 
+        [Test]
+        public void DivideOperatorTest()
+        {
+            var f1 = new Fraction(33, 42);
+            var f2 = new Fraction(111, 8);
+            var f3 = f1 / f2;
+            Assert.That(() => f3.numerator == 44 && f3.denumerator == 777);
+        }
+
         [TestCase(11, 5, "11/5")]
         [TestCase(22, 11, "2")]
         [TestCase(22, -11, "-2")]
-
         public void ToStringTest(int n, int d, string rapr)
         {
             var fr = new Fraction(n, d);
             Assert.That(() => fr.ToString() == rapr);
         }
 
-
+        [Test]
+        public void TestEquals()
+        {
+            var f1 = new Fraction(2, 4);
+            var f2 = new Fraction(1, 2);
+            Assert.That(f1.Equals(f2));
+        }
 
         [Test]
         public void BaseConstructorTestNullDenExcepion()
