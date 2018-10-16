@@ -9,8 +9,8 @@ namespace FractionsTest
     public class Fraction
 
     {
-        public int numerator { get; }
-        public int denumerator { get; }
+        public int Numerator { get; }
+        public int Denominator { get; }
 
         public Fraction(int n, int d = 1)
         {
@@ -19,23 +19,23 @@ namespace FractionsTest
             if (d == 0)
                 throw new ArgumentException(nameof(d));
 
-            this.numerator = n;
-            this.denumerator = d;
+            this.Numerator = n;
+            this.Denominator = d;
 
             //Sign
-            if (this.denumerator < 0)
+            if (this.Denominator < 0)
             {
-                    this.numerator = -numerator;
-                    this.denumerator = -denumerator;
+                    this.Numerator = -Numerator;
+                    this.Denominator = -Denominator;
             }
            
             //Normal Form
-            for (int i = Math.Abs(this.numerator * this.denumerator); i > 1; i--)
+            for (int i = Math.Abs(this.Numerator * this.Denominator); i > 1; i--)
             {
-                if ((this.numerator % i == 0) && (this.denumerator % i == 0))
+                if ((this.Numerator % i == 0) && (this.Denominator % i == 0))
                 {
-                    this.numerator /= i;
-                    this.denumerator /= i;
+                    this.Numerator /= i;
+                    this.Denominator /= i;
                 }
             }
         }
@@ -43,43 +43,43 @@ namespace FractionsTest
         //Overload + operator
         public static Fraction operator+ (Fraction f1, Fraction f2)
         {
-            int _newNumerator = ((f1.numerator * f2.denumerator) +
-                                 (f2.numerator * f1.denumerator));
+            int newNumerator = ((f1.Numerator * f2.Denominator) +
+                                 (f2.Numerator * f1.Denominator));
                                
-            int _newDenominator = (f1.denumerator * f2.denumerator);
+            int newDenominator = (f1.Denominator * f2.Denominator);
 
-            return new Fraction(_newNumerator, _newDenominator);
+            return new Fraction(newNumerator, newDenominator);
         }
 
         //Overload * operator
         public static Fraction operator *(Fraction f1, Fraction f2)
         {
-            return new Fraction(f1.numerator * f2.numerator, f1.denumerator * f2.denumerator);
+            return new Fraction(f1.Numerator * f2.Numerator, f1.Denominator * f2.Denominator);
         }
 
         //Overload - operator
         public static Fraction operator -(Fraction f1, Fraction f2)
         {
-            int _newNumerator = ((f1.numerator * f2.denumerator) -
-                                 (f2.numerator * f1.denumerator));
+            int newNumerator = ((f1.Numerator * f2.Denominator) -
+                                 (f2.Numerator * f1.Denominator));
 
-            int _newDenominator = (f1.denumerator * f2.denumerator);
+            int newDenominator = (f1.Denominator * f2.Denominator);
 
-            return new Fraction(_newNumerator, _newDenominator);
+            return new Fraction(newNumerator, newDenominator);
         }
 
         //Overload / operator
         public static Fraction operator /(Fraction f1, Fraction f2)
         {
-            return new Fraction(f1.numerator * f2.denumerator, f1.denumerator * f2.numerator);
+            return new Fraction(f1.Numerator * f2.Denominator, f1.Denominator * f2.Numerator);
         }
 
         //Override ToString
         public override string ToString()
         {
-            if(this.denumerator != 1)
-            return this.numerator + "/" + this.denumerator;
-            return this.numerator.ToString();
+            if(this.Denominator != 1)
+            return this.Numerator + "/" + this.Denominator;
+            return this.Numerator.ToString();
         }
 
         //Override Equals
@@ -90,8 +90,8 @@ namespace FractionsTest
             if (obj.GetType() == typeof(Fraction))
             {
                 Fraction other = (Fraction) obj;
-                return this.numerator == other.numerator && this.denumerator == other.denumerator
-                       && this.denumerator == other.denumerator;
+                return this.Numerator == other.Numerator && this.Denominator == other.Denominator
+                       && this.Denominator == other.Denominator;
             }
             return false;
         }
