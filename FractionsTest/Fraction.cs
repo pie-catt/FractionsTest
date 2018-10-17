@@ -14,7 +14,7 @@ namespace FractionsTest
 
         public Fraction(int n, int d = 1)
         {
-
+            
             //Denumerator not = 0
             if (d == 0)
                 throw new ArgumentException(nameof(d));
@@ -30,14 +30,18 @@ namespace FractionsTest
             }
            
             //Normal Form
-            for (int i = Math.Abs(this.Numerator * this.Denominator); i > 1; i--)
-            {
-                if ((this.Numerator % i == 0) && (this.Denominator % i == 0))
-                {
-                    this.Numerator /= i;
-                    this.Denominator /= i;
-                }
-            }
+            int gcd = GCD(Math.Abs(this.Numerator), Math.Abs(this.Denominator));
+            this.Numerator /= gcd;
+            this.Denominator /= gcd;
+
+        //    for (int i = Math.Max(this.Denominator, this.Numerator); i > 1; i--)
+        //    {
+        //        if ((this.Numerator % i == 0) && (this.Denominator % i == 0))
+        //        {
+        //            this.Numerator /= i;
+        //            this.Denominator /= i;
+        //        }
+        //    }
         }
 
         //Overload + operator
@@ -96,6 +100,19 @@ namespace FractionsTest
             return false;
         }
 
+        //Inner method
+        private static int GCD(int a, int b)
+        {
+            while (a != 0 && b != 0)
+            {
+                if (a > b)
+                    a %= b;
+                else
+                    b %= a;
+            }
+
+            return a == 0 ? b : a;
+        }
 
         static void Main(string[] args)
         {
