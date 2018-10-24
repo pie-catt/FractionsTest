@@ -6,19 +6,39 @@ using System.Threading.Tasks;
 
 namespace FractionsTest
 {
+    public class ZeroDenEventArgs : EventArgs
+    {
+        public int zero;
+    }
+
     public class Fraction
 
     {
+        public event EventHandler<ZeroDenEventArgs> ZeroDenEvent;
+
+        static void OnZeroDen(object sender, ZeroDenEventArgs e)
+        {
+            Console.WriteLine("L'oggetto {0} ha una divisione per {1}", sender.ToString(), e.zero);
+            Console.ReadLine();
+        }
+
+       
         public int Numerator { get; }
         public int Denominator { get; }
 
         public Fraction(int n, int d = 1)
         {
-            
+            ZeroDenEvent += OnZeroDen;
             //Denumerator not = 0
             if (d == 0)
-                throw new ArgumentException(nameof(d));
+            {
+             
+                ZeroDenEventArgs args = new ZeroDenEventArgs();
+                args.zero = 0;
+                ZeroDenEvent(this, args);
 
+                //throw new ArgumentException(nameof(d));
+            }
             this.Numerator = n;
             this.Denominator = d;
 
@@ -116,6 +136,9 @@ namespace FractionsTest
 
         static void Main(string[] args)
         {
+           Console.WriteLine("Nuovo branch");
+            Fraction f = new Fraction(1, 0);
+            Console.ReadLine();
         }
     }
 }
